@@ -350,21 +350,7 @@ void area()
 
 string toScientific(long long int number)
 {
-    string result;
-    if (number == 0)
-        return "0";
-
-    int exponent = 0;
-    while (number % 10 == 0 && number != 0)
-    {
-        number /= 10;
-        exponent++;
-    }
-
-    if (exponent == 0)
-        result = to_string(number);
-    else
-        result = to_string(number) + "e" + to_string(exponent);
-
-    return result;
+    std::ostringstream oss;
+    oss << std::scientific << std::setprecision(3) << static_cast<double>(number);
+    return oss.str();
 }
