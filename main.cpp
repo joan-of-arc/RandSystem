@@ -188,6 +188,7 @@ bool menu();
 void throwDie();
 void pi();
 void area();
+string toScientific(long long int number);
 
 int main()
 {
@@ -270,30 +271,28 @@ void pi()
     long long int toToss;
     cout << "insert number of tries: ";
     cin >> toToss;
+    cout << "you decided to toss " << toScientific(toToss) << " times" << '\n';
     cout << endl;
 
-    int r = 10000;
 
-    long long int toss = 0;
     long long int hit = 0;
     double x, y;
 
-    while (toss < toToss)
+    for(long long int i = 0; i < toToss; i++)
     {
         x = (double)rand() / RAND_MAX;
         y = (double)rand() / RAND_MAX;
         if (x * x + y * y <= 1.0)
             hit++;
-        toss++;
-        if(!(toss%10000000))
-            cout << "tossed: " << toss << " times" <<'\n';
+        if(!(i%10000000))
+            cout << "tossed: " << toScientific(i) << " times" <<'\n';
     }
 
-    cout << "out of " << toToss << " tries, " << hit << " were inside the quarter of the circle" << '\n';
+    cout << "out of " << toScientific(toToss) << " tries, " << toScientific(hit) << " were inside the quarter of the circle" << '\n';
     cout << fixed << setprecision(15);
-    cout << "the approximation of pi is: " << 4*(double)hit/toss << '\n';
-    cout << "the error is: " << abs(3.14159265358979323846 - 4*(double)hit/toss) << '\n';
-    cout << "the error in percent is: " << abs((3.14159265358979323846 - 4*(double)hit/toss) / 3.14159265358979323846 * 100) << "%" << '\n';
+    cout << "the approximation of pi is: " << 4*(double)hit/toToss << '\n';
+    cout << "the error is: " << abs(3.14159265358979323846 - 4*(double)hit/toToss) << '\n';
+    cout << "the error in percent is: " << abs((3.14159265358979323846 - 4*(double)hit/toToss) / 3.14159265358979323846 * 100) << "%" << '\n';
     getch();
     cout << '\n' << "press again to confirm" << '\n';
     getch();
@@ -347,4 +346,25 @@ void area()
     getch();
     cout << '\n' << "press again to confirm" << '\n';
     getch();
+}
+
+string toScientific(long long int number)
+{
+    string result;
+    if (number == 0)
+        return "0";
+
+    int exponent = 0;
+    while (number % 10 == 0 && number != 0)
+    {
+        number /= 10;
+        exponent++;
+    }
+
+    if (exponent == 0)
+        result = to_string(number);
+    else
+        result = to_string(number) + "e" + to_string(exponent);
+
+    return result;
 }
