@@ -188,7 +188,6 @@ bool menu();
 void throwDie();
 void pi();
 void area();
-string toScientific(long long int number);
 
 int main()
 {
@@ -271,7 +270,7 @@ void pi()
     long long int toToss;
     cout << "insert number of tries: ";
     cin >> toToss;
-    cout << "you decided to toss " << toScientific(toToss) << " times" << '\n';
+    cout << "you decided to toss " << toToss << " times" << '\n';
     cout << endl;
 
 
@@ -285,10 +284,10 @@ void pi()
         if (x * x + y * y <= 1.0)
             hit++;
         if(!(i%10000000))
-            cout << "tossed: " << toScientific(i) << " times" <<'\n';
+            cout << "tossed: " << i << " times" <<'\n';
     }
 
-    cout << "out of " << toScientific(toToss) << " tries, " << toScientific(hit) << " were inside the quarter of the circle" << '\n';
+    cout << "out of " << toToss << " tries, " << hit << " were inside the quarter of the circle" << '\n';
     cout << fixed << setprecision(15);
     cout << "the approximation of pi is: " << 4*(double)hit/toToss << '\n';
     cout << "the error is: " << abs(3.14159265358979323846 - 4*(double)hit/toToss) << '\n';
@@ -346,11 +345,4 @@ void area()
     getch();
     cout << '\n' << "press again to confirm" << '\n';
     getch();
-}
-
-string toScientific(long long int number)
-{
-    std::ostringstream oss;
-    oss << std::scientific << std::setprecision(3) << static_cast<double>(number);
-    return oss.str();
 }
